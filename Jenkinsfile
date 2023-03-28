@@ -32,9 +32,8 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes-sockshop') {
-                        sh "aws eks update-kubeconfig --name webapp-eks-cluster"
-                        sh "kubectl apply -f database.yaml"
-                        sh "kubectl apply -f web.yaml"
+                        sh "aws eks update-kubeconfig --name sockshop-eks-cluster"
+                        sh "kubectl apply -f complete-demo.yaml"
                     }
                 }
             }
