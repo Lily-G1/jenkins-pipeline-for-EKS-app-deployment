@@ -53,7 +53,7 @@ module "eks" {
 }
 
         
-module "eks" {
+module "eks2" {
     source  = "terraform-aws-modules/eks/aws"
     version = "~> 19.0" 
     cluster_name = "sockshop-eks-cluster"
