@@ -17,10 +17,21 @@ pipeline {
                 }
             }
         }
-        stage("Deploy App to EKS Cluster") {
+        stage("Deploy Web App to EKS Cluster") {
             steps {
                 script {
-                    dir('kubernetes') {
+                    dir('kubernetes-webapp') {
+                        sh "aws eks update-kubeconfig --name webapp-eks-cluster"
+                        sh "kubectl apply -f database.yaml"
+                        sh "kubectl apply -f web.yaml"
+                    }
+                }
+            }
+        }
+        stage("Deploy Sock-Shop App to EKS Cluster") {
+            steps {
+                script {
+                    dir('kubernetes-sockshop') {
                         sh "aws eks update-kubeconfig --name webapp-eks-cluster"
                         sh "kubectl apply -f database.yaml"
                         sh "kubectl apply -f web.yaml"
