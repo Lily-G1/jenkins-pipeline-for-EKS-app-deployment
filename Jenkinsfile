@@ -32,10 +32,20 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes-sockshop') {
-//                         sh "aws eks update-kubeconfig --name sockshop-eks-cluster"
                         sh "aws eks update-kubeconfig --region us-east-1 --name sockshop-eks-demo"
                         sh "kubectl create namespace sock-shop"
                         sh "kubectl apply -f complete-demo.yaml"
+                    }
+                }
+            }
+        }
+        stage("Deploy Web App to EKS Cluster") {
+            steps {
+                script {
+                    dir('kubernetes-webapp') {
+                        sh "aws eks update-kubeconfig --region us-east-1 --name webapp-eks-cluster"
+                        sh "kubectl apply -f database.yaml"
+                        sh "kubectl apply -f web.yaml"
                     }
                 }
             }
