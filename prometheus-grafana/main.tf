@@ -18,7 +18,7 @@ data "aws_eks_cluster" "cluster_id" {
 
 resource "null_resource" "eks_cluster_monitoring" {
     provisioner "local-exec" {
-        command = "sh /eks_monitoring_provision.sh ${data.aws_eks_cluster.cluster_id.id}"
+        command = "sh eks_monitoring_provision.sh ${data.aws_eks_cluster.cluster_id.id}"
     }
     # depends_on = [
     #     "${aws_eks_cluster.master-node.name}"
