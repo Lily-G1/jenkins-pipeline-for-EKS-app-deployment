@@ -6,7 +6,7 @@ sudo chmod 700 get_helm.sh
 sudo ./get_helm.sh
 
 # CONFIGURE PROMETHEUS
-# kubectl create namespace monitoring 
+kubectl create namespace monitoring 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring
