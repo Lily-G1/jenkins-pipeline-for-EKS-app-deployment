@@ -21,8 +21,8 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes-sockshop') {
-                        sh "aws eks update-kubeconfig --region us-east-1 --name sockshop-eks-demo"
-//                         sh "kubectl create namespace sock-shop"
+                        sh "aws eks update-kubeconfig --region us-east-1 --name eks-cluster-demo"
+                        sh "kubectl create namespace sock-shop"
                         sh "kubectl apply -f complete-demo.yaml"
                     }
                 }
