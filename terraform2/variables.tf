@@ -3,7 +3,8 @@ variable "aws_region" {
 }
 
 variable "cluster_name" {
-  default = "sockshop-eks-demo"
+#   default = "sockshop-eks-demo"
+  default = "eks-cluster-demo"
   type    = string
 }
 
