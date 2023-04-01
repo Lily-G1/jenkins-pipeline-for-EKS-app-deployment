@@ -9,7 +9,8 @@
 
 
 data "aws_eks_cluster" "cluster_id" {
-  name = "sockshop-eks-demo"
+#   name = "sockshop-eks-demo"
+  name = "eks-cluster-demo"
 }
 
 # output "id" {
