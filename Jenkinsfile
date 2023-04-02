@@ -13,6 +13,7 @@ pipeline {
                     dir('terraform2') {
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
+                        sh "sleep 120s"
                     }
                 }
             }
