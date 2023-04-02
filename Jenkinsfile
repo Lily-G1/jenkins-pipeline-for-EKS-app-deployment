@@ -13,12 +13,33 @@ pipeline {
                     dir('terraform2') {
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
-                        sh "sleep 120s"
+//                         sh "sleep 120s"
+                    }
+                }
+            }
+        }     
+        stage("Deploy Sock-Shop App to EKS Cluster") {
+            steps {
+                script {
+                    dir('kubernetes-sockshop') {
+                        sh "aws eks update-kubeconfig --region us-east-1 --name eks-cluster-demo"
+                        sh "kubectl create namespace sock-shop"
+                        sh "kubectl apply -f complete-demo.yaml"
                     }
                 }
             }
         }
-        stage("Install & Configure Monitoring") {
+        stage("Deploy Web App to EKS Cluster") {
+            steps {
+                script {
+                    dir('kubernetes-webapp') {
+                        sh "kubectl apply -f database.yaml"
+                        sh "kubectl apply -f web.yaml"
+                    }
+                }
+            }
+        }
+       stage("Install & Configure Monitoring") {
             steps {
                 script {
                     dir('prometheus-grafana') {
@@ -28,36 +49,5 @@ pipeline {
                 }
             }
         } 
-//         stage("Deploy Sock-Shop App to EKS Cluster") {
-//             steps {
-//                 script {
-//                     dir('kubernetes-sockshop') {
-//                         sh "aws eks update-kubeconfig --region us-east-1 --name eks-cluster-demo"
-//                         sh "kubectl create namespace sock-shop"
-//                         sh "kubectl apply -f complete-demo.yaml"
-//                     }
-//                 }
-//             }
-//         }
-//         stage("Deploy Web App to EKS Cluster") {
-//             steps {
-//                 script {
-//                     dir('kubernetes-webapp') {
-//                         sh "kubectl apply -f database.yaml"
-//                         sh "kubectl apply -f web.yaml"
-//                     }
-//                 }
-//             }
-//         }
-//        stage("Install & Configure Monitoring") {
-//             steps {
-//                 script {
-//                     dir('prometheus-grafana') {
-//                         sh "terraform init"
-//                         sh "terraform apply -auto-approve"
-//                     }
-//                 }
-//             }
-//         } 
     }
 }
